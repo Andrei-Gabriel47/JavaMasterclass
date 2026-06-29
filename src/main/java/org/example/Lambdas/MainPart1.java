@@ -1,0 +1,38 @@
+package org.example.Lambdas;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+public class MainPart1 {
+
+    record Person (String firstName, String lastName){
+        @Override
+        public String toString() {
+            return firstName + " " + lastName;
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Person> people = new ArrayList<>(Arrays.asList(
+                new MainPart1.Person("Ana", "Maria"),
+                new Person("Ioana", "Ionica"),
+                new Person("Andrei", "Puciu"),
+                new Person("Denisa", "Puciu")
+        ));
+
+        //anonymous comparator class
+        var comparatorLastName = new Comparator<Person>(){
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o1.lastName().compareTo(o2.lastName());
+            }
+        };
+        //people.sort(comparatorLastName);
+        people.sort((o1, o2) -> o1.lastName().compareTo(o2.lastName()));
+        System.out.println(people);
+
+
+    }
+}
